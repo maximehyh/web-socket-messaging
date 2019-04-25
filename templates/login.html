@@ -1,0 +1,23 @@
+{% extends 'layout.html' %} {% block body %}
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Login</h5>
+        <p class="card-text">Please login in order to join chat room</p>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+<br> {% if error %}
+
+<p class=error><strong>Error:</strong> {{ error }} {% endif %}{% endblock %}

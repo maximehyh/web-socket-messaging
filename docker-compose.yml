@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  web_socket_messaging_container:
+    build: .
+    restart: always 
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+    command: python main.py
