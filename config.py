@@ -1,5 +1,5 @@
 user_list = {
-    'admin': 'password',
-    'toto': 'mdp',
-    'lulu': 'token'
+    'bigbuck': 'bunny',
+    'ffmpeg': 'rocks',
+    'mad': 'max'
 }

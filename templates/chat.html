@@ -1,12 +1,27 @@
 {% extends 'layout.html' %} {% block body %}
 
 <div class="card">
-    <h5 class="card-header">Chat Room</h5>
-    <div class="card-body message_holder"></div>
+    <h5 class="card-header">Chat Room -
+        <a id="username">{{username}}</a>
+        <button class="btn btn-outline-secondary" id="disconnect" style="float: right;">Disconnect</button>
+    </h5>
+    <div class="card-body message_holder" style="height: 600px; overflow-y: scroll;">
+        {% for message in messages %}
+        <div> {{ message.message }}</div>
+        {% endfor %}
+    </div>
     <form action="" method="POST">
         <div class="card-footer text-muted">
             <div class="input-group mb-3">
                 <input type="text" class="message form-control" placeholder="Message">
+            </div>
+            <div class="input-group">
+                <select class="custom-select" id="recipient">
+                <option selected>All</option>
+                {% for user in user_list %}
+                <option> {{ user }}</option>
+                {% endfor %}
+                </select>
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit">SEND</button>
                 </div>
@@ -14,6 +29,8 @@
         </div>
     </form>
 </div>
+<br>
+<button class="btn btn-outline-secondary" id="clearButton" style="float: right;">Clear</button>
 
 <script type="text/javascript" src='/static/chat.js'></script>
 
