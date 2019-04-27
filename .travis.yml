@@ -10,4 +10,5 @@ install:
     - docker build .
 
 script:
-    - docker-compose run --rm web_socket_messaging_container python -m unittest
+    - docker-compose run web python init_db.py
+    - docker-compose run --rm web python -m unittest
