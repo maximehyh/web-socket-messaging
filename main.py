@@ -30,9 +30,7 @@ def login():
     (could be stored within a DB for more safety) '''
 
     error = None
-
-    if session.get('logged_in'):
-        return redirect(url_for('chat'))
+    db.create_all()
 
     if request.method == 'POST':
         if (request.form['username'] in user_list.keys() and
@@ -86,20 +84,15 @@ def private_message(data):
     session_id = logged_users[data['username']]
     message = data['origin'] + ' : ' + data['message']
 
-    emit('new_private_message', message, room=session_id)
+    socketio.emit('new_private_message', message, room=session_id)
 
 
 @socketio.on('disconnect_request')
 def disconnect_request():
+    session.pop('logged_in', None)
     disconnect()
 
 
-@socketio.on('disconnect')
-def test_disconnect():
-    print('Client disconnected', request.sid)
-
-
 if __name__ == '__main__':
-    db.create_all()
     socketio.run(app, host='0.0.0.0', port=PORT)
     # socketio.run(app, debug=True)
