@@ -9,8 +9,7 @@ Run
 - You can specify port in docker-compose.yml
 
 
-Improvements
-------------
+TO DO
+-----
 - Message queue
 - Users database
-- Better handle client disconnection

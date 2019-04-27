@@ -24,7 +24,7 @@ socket.on('connect', function() {
             socket.emit('message_event', {
                 message: username + ' : ' + user_input
             });
-            // Case : user specific
+            // Case : targeted messaging
         } else {
             private_socket.emit('private_message', {
                 message: user_input,
@@ -44,8 +44,8 @@ socket.on('message_event_response', function(msg) {
     }
 });
 
-// Private messages are shown in a pop up window
-private_socket.on('new_private_message', function(msg) {
+// Targeted  messages are shown in a pop up window
+socket.on('new_private_message', function(msg) {
     alert(msg);
 });
 
@@ -55,6 +55,8 @@ $("#clearButton").click(function() {
     $("div.message_holder").empty();
 });
 
+//  Disconnecting socket and redirecting to loggin page
 $('#disconnect').click(function() {
     socket.emit('disconnect_request');
+    window.location.replace('http://' + document.domain + ':' + location.port);
 });

@@ -1,0 +1,13 @@
+language: python
+python:
+    - 3.6.2
+
+services:
+    - docker
+    - docker-compose
+  
+install:
+    - docker build .
+
+script:
+    - docker-compose run --rm web_socket_messaging_container python -m unittest
