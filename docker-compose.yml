@@ -1,11 +1,30 @@
-version: '2'
+version: '3.3'
 
 services:
-  web_socket_messaging_container:
+
+  db:
+    image: postgres:latest
+    networks:
+     - backend
+    restart:
+      always
+    volumes:
+      - ./docker_volumes/postgresql/data:/var/lib/postgresql/data
+
+  web:
     build: .
-    restart: always 
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
+      PORT: 3000
+    networks:
+     - backend
+    restart:
+      always
     ports:
       - "3000:3000"
-    environment:
-      PORT: 3000
-    command: python main.py
+    command: bash -c "python init_db.py && python main.py" 
+
+networks:
+  backend:

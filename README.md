@@ -5,7 +5,7 @@ flask-socketio documentation: https://flask-socketio.readthedocs.io/en/latest/
 
 Run
 ---
-- Run 'docker-compose build' and 'docker-compose up'
+- Run 'docker-compose build' and 'docker-compose up' (need to wait a little bit for postgres container to get ready)
 - You can specify port in docker-compose.yml
 
 
