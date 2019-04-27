@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///message.db'
 
 db = SQLAlchemy(app)
 socketio = SocketIO(app)
-# PORT = int(os.environ.get("PORT"))
+PORT = int(os.environ.get("PORT"))
 
 logged_users = {}
 
@@ -30,6 +30,7 @@ def login():
     (could be stored within a DB for more safety) '''
 
     error = None
+    db.create_all()
 
     if request.method == 'POST':
         if (request.form['username'] in user_list.keys() and
@@ -93,6 +94,5 @@ def disconnect_request():
 
 
 if __name__ == '__main__':
-    db.create_all()
-    # socketio.run(app, host='0.0.0.0', port=PORT)
-    socketio.run(app, debug=True)
+    socketio.run(app, host='0.0.0.0', port=PORT)
+    # socketio.run(app, debug=True)
