@@ -11,4 +11,4 @@ install:
 
 script:
     - docker-compose run web python init_db.py
-    - docker-compose run --rm web python -m unittest
+    - docker-compose run -e TESTING=true --rm web python -m unittest

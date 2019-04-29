@@ -1,4 +1,4 @@
-from main import app, socketio
+from main import app, socketio, message_directed
 import unittest
 
 
