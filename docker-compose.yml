@@ -11,20 +11,43 @@ services:
     volumes:
       - ./docker_volumes/postgresql/data:/var/lib/postgresql/data
 
+  redis:
+    image: redis:5.0.3-alpine
+    networks:
+     - backend
+    ports:
+    - 6379:6379
+
   web:
     build: .
     depends_on:
       - db
+      - redis
     environment:
+      ASYNC_MODE: eventlet
       DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
-      PORT: 3000
+
     networks:
      - backend
     restart:
       always
     ports:
       - "3000:3000"
-    command: bash -c "python init_db.py && python main.py" 
+    command: bash -c "python init_db.py && python main.py"
+
+  celery: 
+    build: . 
+    environment:
+      # "It is important to note that an external process that wants to connect 
+      # to a SocketIO server does not need to use eventlet or gevent like the 
+      # main server."
+      # https://flask-socketio.readthedocs.io/en/latest/#emitting-from-an-external-process
+      ASYNC_MODE: threading
+    command: celery worker -A main.celery --loglevel=info 
+    networks:
+      - backend
+    restart:
+      always
 
 networks:
   backend:

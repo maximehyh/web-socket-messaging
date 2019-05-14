@@ -7,15 +7,11 @@ flask-socketio documentation: https://flask-socketio.readthedocs.io/en/latest/
 
 Run
 ---
-
 - Run 'docker-compose build' and 'docker-compose up' (need to wait a little bit for postgres container to get ready)
-- You can specify port in docker-compose.yml
 
-
-TO DO
+Tests
 -----
-- Message queue (Reddis + Celery...)
-
+- Run 'docker-compose run web python init_db.py' and 'docker-compose run -e TESTING=true --rm web python -m unittest'
 
 Architecture
 ------------
